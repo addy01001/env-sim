@@ -15,19 +15,22 @@ int main() {
     env.push_back(life);
     
     while(true) {
-        vector<Life> bar;
-        std::copy_if (env.begin(), env.end(), std::back_inserter(bar), [](Life i){ return i.alive==true;} );
+        vector<Life *> bar;
+        for (auto& life : env) {
+            if (life.alive) {
+                bar.push_back(&life);
+            }
+        }
 
         if(bar.size()==0) {
-            cout<<"All Life have passed away";
+            cout<<"All Life have passed away"<<endl;
             break;
         }
 
         for(int i=0; i<bar.size(); i++) {
-            bar[i].live();
+            (*bar[i]).live();
         }
     }
     
-
     return 0;
 }
